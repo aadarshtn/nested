@@ -4,7 +4,7 @@ const port = 8000;
 
 // MiddleWare
 // Use Express Router
-app.use('/', require('./routes/index'));
+app.use('/', require('./routes'));
 // Set Up The View Engine
 app.set('view engine', 'ejs');
 app.set('views', './views');
