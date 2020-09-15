@@ -3,5 +3,7 @@
 
 
 module.exports.home = function(req,res){
-    return res.end('<h1>Exports is up for nested</h1>')
-}
+    return res.render('home', {
+        title : "Home"
+    });
+};
