@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const port = 8000;
 const expressLayout = require('express-ejs-layouts');
+const db = require('./config/mongoose');
 
 app.use(express.static('./assets'));
 app.use(expressLayout);
@@ -23,5 +24,5 @@ app.listen(8000, function(err){
     if(err){
         console.log(`Error In Running The Server : ${err}`);
     }
-    console.log(`The Server Is Up And Running At ${port} `);
+    console.log(`The Server Is Up And Running At Port :  ${port} `);
 });
