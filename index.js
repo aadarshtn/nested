@@ -1,6 +1,14 @@
 const express = require('express');
 const app = express();
 const port = 8000;
+const expressLayout = require('express-ejs-layouts');
+
+app.use(express.static('./assets'));
+app.use(expressLayout);
+
+// Extracting Styles And Scripts From Body To Appropriate Positions In The Layout EJS File
+app.set('layout extractStyles', true);
+app.set('layout extractScripts', true);
 
 // MiddleWare
 // Use Express Router
