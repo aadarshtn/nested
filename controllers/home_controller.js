@@ -23,13 +23,14 @@ module.exports.login = function(req,res){
 
 // Get The SignUp Data
 module.exports.create = function(req,res){
-    if(req.body.password != req.body.confirm-password){
+    if(req.body.password != req.body.confirm_password){
+        console.log('Passwords Not Matching');
         return res.redirect('back');
     }
     User.findOne({email : req.body.email}, function(err,user){
         if(err){
             console.log("Error In Finding User In Signing Up");
-            return
+            return;
         }
         if(!user){
             User.create(req.body, function(err,user){
