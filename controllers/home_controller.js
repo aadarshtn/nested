@@ -48,5 +48,30 @@ module.exports.create = function(req,res){
 
 // Signin and create a user session
 module.exports.createSession = function(req,res){
-    // TODO
+
+    // Steps To Authenticate
+    // Find The User
+    User.findOne({email : req.body.email}, function(err,user){
+        if(err){
+            console.log('Error In Finding User Matching The Given Email');
+            return
+        }
+        // Handle If The User Is Found
+        if(user){
+            // Handle Password Mismatch If Any
+            if(user.password != req.body.password){
+                return res.redirect('back');
+            }   
+            // Handle Session Creation
+            res.cookie('user_id', user.id);
+            return res.redirect('profile');
+        }else{
+            // Handle If User Is Not Found
+            return res.redirect('back');
+        }
+    });
+
+    
+
+    
 }

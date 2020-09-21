@@ -1,0 +1,14 @@
+<link rel="stylesheet" href="/css/users/profile/users_profile.css">
+
+<h1>
+    nested / users /<%= title %>
+</h1>
+
+
+<p>Name : <%= user.name %></p>
+<p>Email : <%= user.email %></p>
+
+
+<form action="/user-logout" method="POST">
+    <input type="submit" value="Log Out">
+</form>
