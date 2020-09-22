@@ -1,29 +1,29 @@
 module.exports.users = function(req,res){
-    return res.render('users', {
+    return res.render('./users/users', {
         title : "Users"
     });
 }
 
 module.exports.profile = function(req,res){
-    return res.render('profile', {
+    return res.render('./users/profile', {
         title : "Profile"
     });
 }
 
 module.exports.posts = function(req,res){
-    return res.render('posts', {
+    return res.render('./users/posts', {
         title : "Posts"
     });
 }
 
 module.exports.signup = function(req,res){
-    return res.render('signup', {
+    return res.render('./users/signup', {
         title : "nested | SignUp"
     });
 };
 
 module.exports.login = function(req,res){
-    return res.render('login', {
+    return res.render('./users/login', {
         title : "nested | LogIn"
     });
 };
@@ -45,7 +45,7 @@ module.exports.create = function(req,res){
                     console.log("Error In Creating User While Signing Up");
                     return;
                 }
-                return res.redirect('/login');
+                return res.redirect('./users/login');
             })
         }else{
             return res.redirect('back');
