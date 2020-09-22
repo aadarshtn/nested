@@ -1,7 +1,8 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const app = express();
 const port = 8000;
-const expressLayout = require('express-ejs-layouts');
+const expressLayouts = require('express-ejs-layouts');
 const db = require('./config/mongoose');
 
 // Used For Session Cookie
@@ -10,16 +11,16 @@ const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 
 app.use(express.urlencoded());
-const cookieParser = require('cookie-parser');
+
 
 
 // MiddleWare
 
-
 app.use(cookieParser());
 
 app.use(express.static('./assets'));
-app.use(expressLayout);
+
+app.use(expressLayouts);
 
 // Extracting Styles And Scripts From Body To Appropriate Positions In The Layout EJS File
 app.set('layout extractStyles', true);
@@ -34,7 +35,7 @@ app.set('views', './views');
 app.use(session({
     name: 'nested',
     // TODO Change The Secret Before Deployment In Production Mode
-    secret: 'haha',
+    secret: 'blahsomething',
     saveUninitialized: false,
     resave: false,
     cookie: {
@@ -47,7 +48,6 @@ app.use(passport.session());
 
 // Use Express Router
 app.use('/', require('./routes'));
-
 
 // Making the server listen to required port
 app.listen(8000, function(err){

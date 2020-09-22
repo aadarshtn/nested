@@ -1,32 +1,22 @@
-module.exports.users = function(req,res){
-    return res.render('./users/users', {
-        title : "Users"
-    });
-}
+const User = require('../models/user');
 
 module.exports.profile = function(req,res){
-    return res.render('./users/profile', {
+    return res.render('user_profile', {
         title : "Profile"
-    });
+    })
 }
 
-module.exports.posts = function(req,res){
-    return res.render('./users/posts', {
-        title : "Posts"
-    });
+module.exports.signUp = function(req,res){
+    return res.render('user_sign_up', {
+        title : "nested | Sign Up"
+    })
 }
 
-module.exports.signup = function(req,res){
-    return res.render('./users/signup', {
-        title : "nested | SignUp"
-    });
-};
-
-module.exports.login = function(req,res){
-    return res.render('./users/login', {
+module.exports.signIn = function(req,res){
+    return res.render('user_sign_in', {
         title : "nested | LogIn"
-    });
-};
+    })
+}
 
 // Get The SignUp Data
 module.exports.create = function(req,res){
@@ -34,24 +24,22 @@ module.exports.create = function(req,res){
         console.log('Passwords Not Matching');
         return res.redirect('back');
     }
-    User.findOne({email : req.body.email}, function(err,user){
-        if(err){
-            console.log("Error In Finding User In Signing Up");
-            return;
-        }
+
+    User.findOne({email: req.body.email}, function(err,user){
+        if(err){console.log("Error In Finding User In Signing Up");return}
+        
         if(!user){
-            User.create(req.body, function(err,user){
-                if(err){
-                    console.log("Error In Creating User While Signing Up");
-                    return;
-                }
-                return res.redirect('./users/login');
+            User.create(req.body, function(err, user){
+                if(err){console.log("Error In Creating User While Signing Up");return}
+
+                return res.redirect('/sign-in');
             })
         }else{
             return res.redirect('back');
         }
+
     });
-};
+}
 
 // Signin and create a user session
 module.exports.createSession = function(req,res){
