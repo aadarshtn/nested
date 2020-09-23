@@ -1,3 +1,24 @@
 <header>
     nested App Header
+
+    <ul>
+        <% if (locals.user) { %>
+
+            <li>
+                <a href="/profile">
+                    <%= user.name %>
+                </a>
+            </li>
+            <li>
+                <a href="/sign-out">Sign Out</a>
+            </li>
+
+        <% } else { %>
+
+            <li><a href="/sign-in">Sign In</a></li>
+            <li><a href="/sign-up">Sign Up</a></li>
+
+        <% } %>
+    </ul>
+
 </header>

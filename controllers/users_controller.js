@@ -1,3 +1,5 @@
+const { session } = require('passport');
+const passport = require('passport');
 const User = require('../models/user');
 
 module.exports.profile = function(req,res){
@@ -7,12 +9,22 @@ module.exports.profile = function(req,res){
 }
 
 module.exports.signUp = function(req,res){
+
+    if(req.isAuthenticated()){
+        return res.redirect('profile');
+    }
+
     return res.render('user_sign_up', {
         title : "nested | Sign Up"
     })
 }
 
 module.exports.signIn = function(req,res){
+    
+    if(req.isAuthenticated()){
+        return res.redirect('profile');
+    }
+    
     return res.render('user_sign_in', {
         title : "nested | LogIn"
     })
@@ -43,5 +55,10 @@ module.exports.create = function(req,res){
 
 // Signin and create a user session
 module.exports.createSession = function(req,res){
+    return res.redirect('/');
+}
+
+module.exports.destroySession = function(req,res){
+    req.logout();
     return res.redirect('/');
 }
