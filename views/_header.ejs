@@ -1,24 +1,24 @@
-<header>
-    nested App Header
-
-    <ul>
+<header id = "website-header">
+    <div id = "website-logo">
+        <p>NESTED</p>
+    </div>
+    <ul id = "header-ul">
         <% if (locals.user) { %>
-
-            <li>
-                <a href="/profile">
-                    <%= user.name %>
-                </a>
-            </li>
-            <li>
-                <a href="/sign-out">Sign Out</a>
-            </li>
-
+            <div class = "user-actions">
+                <li>
+                    <a href="/profile">
+                        <%= user.name %> |
+                    </a>
+                </li>
+                <li>
+                    <a href="/sign-out">| Sign Out</a>
+                </li>
+            </div>
         <% } else { %>
-
-            <li><a href="/sign-in">Sign In</a></li>
-            <li><a href="/sign-up">Sign Up</a></li>
-
+            <div class = "user-actions">
+                <li><a href="/sign-in">Sign In |</a></li>
+                <li><a href="/sign-up">| Sign Up</a></li>
+            </div>
         <% } %>
     </ul>
-
 </header>
