@@ -1,6 +1,7 @@
 const { session } = require('passport');
 const passport = require('passport');
 const User = require('../models/user');
+const Post = require('../models/post');
 
 module.exports.profile = function(req,res){
     return res.render('user_profile', {
@@ -44,7 +45,7 @@ module.exports.create = function(req,res){
             User.create(req.body, function(err, user){
                 if(err){console.log("Error In Creating User While Signing Up");return}
 
-                return res.redirect('/sign-in');
+                return res.redirect('sign-in');
             })
         }else{
             return res.redirect('back');
@@ -61,4 +62,14 @@ module.exports.createSession = function(req,res){
 module.exports.destroySession = function(req,res){
     req.logout();
     return res.redirect('/');
+}
+
+module.exports.createPost = function(req,res){
+    Post.create(req.body, function(err){
+        if(err){
+            console.log("Error In Creating The Post");
+            return;
+        }
+        return res.redirect('/');
+    });
 }
