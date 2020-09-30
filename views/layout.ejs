@@ -6,12 +6,16 @@
         <link rel="stylesheet" href="/css/layout.css">
         <link rel="stylesheet" href="/css/header.css">
         <link rel="stylesheet" href="/css/footer.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
         <%- style %>
     </head>
 
     <body>
 
         <%- include('_header'); %>
+
+        
 
         <main id = "layout-main">
             <%- body %>
@@ -20,6 +24,28 @@
         <%- include('_footer'); %>
 
         <%- script %>
+
+        <script>
+            <% if (flash.success && flash.success.length > 0) { %>
+                new Noty({
+                    type: 'important',
+                    text: '<%= flash.success %>',
+                    theme: 'sunset',
+                    timeout: 1000,
+                    layout: 'topRight'
+                }).show();
+            <% } %>
+
+            <% if (flash.error && flash.error.length > 0) { %>
+                new Noty({
+                    type: 'error',
+                    text: '<%= flash.error %>',
+                    theme: 'sunset',
+                    timeout: 1000,
+                    layout: 'topRight'
+                }).show();
+            <% } %>
+        </script>
 
     </body>
 </html>
