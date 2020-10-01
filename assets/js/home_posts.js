@@ -19,7 +19,7 @@
             })
         });
     }
-
+    // Method to display post data in home page ofcourse dynamically using ajax
     let newPostDom = function(post){
         return $(`<li id = "post-${post._id}">
                     <p>
@@ -68,6 +68,44 @@
         })
     }
 
+    // method to send form data for comments using ajax
+    let createComment = function(){
+        let newCommentForm = $('#new-comment-form');
+        newCommentForm.submit(function(e){
+            e.preventDefault();
+
+            $.ajax({
+                type: 'post',
+                url: '/comments/create',
+                data: newCommentForm.serialize(),
+                success: function(data){
+                    let newComment = newCommentDom(data.data.comment);
+                    $('.post-comments-list>ul').prepend(newComment);
+                },
+                error: function(err){
+                    console.log(err.responseText);
+                }
+            })
+        })
+    }
+
+
+    // Method to display comment data in home page ofcourse dynamically using ajax
+    let newCommentDom = function(comment){
+        return $(`<li id = "comment-${ comment._id }">
+                    <p>
+                        <small>
+                            <a href="/comments/destroy/${ comment._id }">X</a>
+                        </small>
+                        ${ comment.content }
+                        <br>
+                        <small>
+                            ${ comment.user.name }
+                        </small>
+                    </p>  
+                </li>`);    
+    }
 
     createPost();
+    createComment();
 }
