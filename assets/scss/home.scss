@@ -1,3 +1,15 @@
 body{
-    
+    #page-layout{
+        display: flex;
+        margin: 5px;
+
+        #feed-posts{
+            width: 80%;
+            padding: 5px;
+        }
+        #user-friends{
+            width: 20%;
+            padding: 5px;
+        }
+    }
 }

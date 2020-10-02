@@ -1,7 +1,4 @@
-const { session } = require('passport');
-const passport = require('passport');
 const User = require('../models/user');
-const Post = require('../models/post');
 
 module.exports.profile = function(req,res){
     User.findById(req.params.id, function(err,user){
@@ -15,9 +12,11 @@ module.exports.profile = function(req,res){
 module.exports.update = function(req,res){
     if(req.user.id == req.params.id){
         User.findByIdAndUpdate(req.params.id, {name: req.body.name,email: req.body.email}, function(err, user){
+            req.flash('success', 'Updated!');
             return res.redirect('back');
         });
     }else{
+        req.flash('error', 'Unauthorized!');
         return res.status(401).send('Unauthorized');
     }
 }
@@ -47,20 +46,21 @@ module.exports.signIn = function(req,res){
 // Get The SignUp Data
 module.exports.create = function(req,res){
     if(req.body.password != req.body.confirm_password){
-        console.log('Passwords Not Matching');
+        req.flash('error', 'Passwords do not match');
         return res.redirect('back');
     }
 
     User.findOne({email: req.body.email}, function(err,user){
-        if(err){console.log("Error In Finding User In Signing Up");return}
+        if(err){req.flash('error', err); return}
         
         if(!user){
             User.create(req.body, function(err, user){
-                if(err){console.log("Error In Creating User While Signing Up");return}
+                if(err){req.flash('error', err); return}
 
                 return res.redirect('sign-in');
             })
         }else{
+            req.flash('success', 'You have signed up, login to continue!');
             return res.redirect('back');
         }
 
@@ -75,16 +75,6 @@ module.exports.createSession = function(req,res){
 
 module.exports.destroySession = function(req,res){
     req.logout();
-    req.flash('success', 'You are logged out');
+    req.flash('success', 'You are logged out!');
     return res.redirect('/');
-}
-
-module.exports.createPost = function(req,res){
-    Post.create(req.body, function(err){
-        if(err){
-            console.log("Error In Creating The Post");
-            return;
-        }
-        return res.redirect('/');
-    });
 }
